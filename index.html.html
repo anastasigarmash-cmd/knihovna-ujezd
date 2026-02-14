@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Městská knihovna Újezd</title>
+  <meta name="description" content="Oficiální web Městské knihovny Újezd – služby, historie města, regionální legendy a kontakt." />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --primary:#1f2f4a;
+      --accent:#7b2d2d;
+      --beige:#f3efe6;
+      --text:#1b1f24;
+      --muted:#556070;
+      --border:#d9d2c6;
+
+      --serif: Georgia, "Times New Roman", Times, serif;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+
+      --max: 1080px;
+      --radius: 10px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ margin:0; padding:0; background:var(--bg); color:var(--text); font-family:var(--sans); line-height:1.55; }
+    a{ color:var(--primary); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    img{ max-width:100%; height:auto; }
+
+    header{
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+    .topbar{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 240px;
+    }
+    .brand-mark{
+      width:40px; height:40px;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      display:grid;
+      place-items:center;
+      color: var(--primary);
+      font-family: var(--serif);
+      font-weight:700;
+      letter-spacing: .5px;
+      user-select:none;
+    }
+    .brand-title{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .brand-title strong{
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+    .brand-title span{
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    nav ul{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+    nav a{
+      display:inline-block;
+      padding:8px 10px;
+      border-radius: 8px;
+      color: var(--primary);
+      font-weight:600;
+      font-size: 14px;
+      border:1px solid transparent;
+    }
+    nav a[aria-current="page"]{
+      border-color: var(--border);
+      background: var(--beige);
+    }
+
+    main{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px 42px;
+    }
+
+    .hero{
+      margin-top: 18px;
+      border-radius: var(--radius);
+      overflow:hidden;
+      border: 1px solid var(--border);
+      background: #0f1a2a;
+      position:relative;
+      min-height: 360px;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(90deg, rgba(31,47,74,.85), rgba(31,47,74,.35)),
+        url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=2000&q=70");
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.02);
+    }
+    .hero-inner{
+      position:relative;
+      padding: 54px 22px;
+      max-width: 760px;
+    }
+    .hero h1{
+      margin:0 0 10px;
+      font-family: var(--serif);
+      font-size: 40px;
+      line-height:1.15;
+      color: #fff;
+      letter-spacing:.2px;
+    }
+    .hero p{
+      margin:0 0 18px;
+      color: rgba(255,255,255,.92);
+      font-size: 16.5px;
+      max-width: 62ch;
+    }
+    .btn{
+      display:inline-block;
+      padding: 10px 14px;
+      border-radius: 9px;
+      border: 1px solid rgba(255,255,255,.65);
+      background: rgba(255,255,255,.12);
+      color:#fff;
+      font-weight:700;
+      font-size: 14.5px;
+    }
+    .btn:hover{ text-decoration:none; background: rgba(255,255,255,.18); }
+
+    .section{
+      margin-top: 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow:hidden;
+    }
+    .section .head{
+      padding: 14px 16px;
+      background: var(--beige);
+      border-bottom: 1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .section .head h2{
+      margin:0;
+      font-family: var(--serif);
+      color: var(--primary);
+      font-size: 22px;
+    }
+    .section .body{
+      padding: 16px;
+      background: #fff;
+    }
+    .lead{
+      color: var(--muted);
+      margin-top:0;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .grid-2{ grid-template-columns: 1fr; }
+      .brand{ min-width: auto; }
+      .hero h1{ font-size: 32px; }
+    }
+
+    .info-box{
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fff;
+    }
+    .info-box h3{
+      margin:0 0 8px;
+      font-family: var(--serif);
+      color: var(--primary);
+      font-size: 18px;
+    }
+    .info-row{
+      display:flex;
+      gap:10px;
+      padding: 8px 0;
+      border-top: 1px dashed var(--border);
+    }
+    .info-row:first-of-type{ border-top:none; padding-top:0; }
+    .info-row b{ min-width: 120px; color: var(--text); }
+    .muted{ color: var(--muted); }
+
+    /* Legend hub */
+    .topic-list{
+      list-style:none;
+      padding:0;
+      margin: 0;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .topic{
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      overflow:hidden;
+    }
+    .topic-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 12px 12px;
+      background: #fff;
+    }
+    .topic-header strong{
+      font-family: var(--serif);
+      color: var(--primary);
+      font-size: 18px;
+    }
+    .pill{
+      display:inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight:600;
+      white-space:nowrap;
+    }
+    .topic-body{
+      padding: 0 12px 12px;
+      border-top: 1px dashed var(--border);
+      background: #fff;
+    }
+    .topic-body p{
+      margin: 10px 0 0;
+      color: var(--text);
+    }
+    .topic-link{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 12px 12px;
+      border-top: 1px dashed var(--border);
+      background: #fff;
+      color: var(--primary);
+      font-weight:700;
+    }
+    .topic-link:hover{
+      text-decoration:none;
+      background: var(--beige);
+    }
+
+    /* Lovec legend list */
+    .sublist{
+      list-style:none;
+      padding:0;
+      margin: 10px 0 0;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .sublist a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 12px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--primary);
+      font-weight:700;
+    }
+    .sublist a:hover{ text-decoration:none; background: var(--beige); }
+    .tag-accent{
+      display:inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    /* Legend detail */
+    .backlink{
+      display:inline-block;
+      margin-top: 8px;
+      font-weight:700;
+      color: var(--primary);
+    }
+
+    .page{ display:none; }
+    .page.active{ display:block; }
+
+    footer{
+      margin-top: 28px;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+    .footer-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 18px;
+      color: var(--muted);
+      font-size: 13px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .footer-inner strong{ color: var(--primary); font-family: var(--serif); font-weight:700; }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">Ú</div>
+      <div class="brand-title">
+        <strong>Městská knihovna Újezd</strong>
+        <span>Oficiální stránky městské knihovny</span>
+      </div>
+    </div>
+
+    <nav aria-label="Hlavní navigace">
+      <ul>
+        <li><a href="#domu" data-page="home" aria-current="page">O knihovně</a></li>
+        <li><a href="#historie" data-page="history">Historie města</a></li>
+        <li><a href="#legendy" data-page="legends">Regionální legendy</a></li>
+        <li><a href="#kontakt" data-page="contact">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section class="page active" id="page-home" aria-labelledby="home-title">
+    <div class="hero" role="img" aria-label="Knihy v knihovně">
+      <div class="hero-inner">
+        <h1 id="home-title">Vítejte v Městské knihovně Újezd</h1>
+        <p>Místo příběhů, historie a vzpomínek našeho města.</p>
+        <a class="btn" href="#historie" data-page="history">Objevte historii Újezdu</a>
+      </div>
+    </div>
+
+    <div class="section" aria-label="O knihovně">
+      <div class="head">
+        <h2>O knihovně</h2>
+      </div>
+      <div class="body">
+        <div class="grid-2">
+          <div>
+            <p class="lead">
+              Městská knihovna Újezd je kulturním centrem města již více než 120 let.
+              Poskytujeme přístup k beletrii, odborné literatuře i regionálním archivům.
+              Součástí knihovny je také sbírka historických dokumentů a kronik vztahujících se k dějinám města.
+            </p>
+
+            <p>
+              Na těchto stránkách najdete základní informace o knihovně, kontakty, otevírací dobu a také vybrané materiály
+              k historii města. Část obsahu je věnována regionálním příběhům, které jsou vedeny jako <b>legendy</b> a tradované pověsti.
+            </p>
+          </div>
+
+          <aside class="info-box" aria-label="Rychlé informace">
+            <h3>Rychlé informace</h3>
+            <div class="info-row"><b>Adresa</b><span>Městská knihovna Újezd, Náměstí 12, 289 00 Újezd</span></div>
+            <div class="info-row"><b>Telefon</b><span>+420 325 487 112</span></div>
+            <div class="info-row"><b>E-mail</b><span><a href="mailto:info@knihovna-ujezd.cz">info@knihovna-ujezd.cz</a></span></div>
+            <div class="info-row"><b>Otevírací doba</b><span class="muted">Po 9:00–17:00 · St 9:00–17:00 · Pá 9:00–15:00</span></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section class="page" id="page-history" aria-labelledby="history-title">
+    <div class="section">
+      <div class="head">
+        <h2 id="history-title">Stručné dějiny města Újezd</h2>
+      </div>
+      <div class="body">
+        <p class="lead">
+          Újezd byl založen ve 14. století jako malé sídlo při řece. Díky své poloze se postupně rozvíjel jako řemeslnické a obchodní centrum.
+          Období rozmachu nastalo zejména v druhé polovině 17. století, kdy město prosperovalo díky mlýnům a stabilnímu obchodu.
+        </p>
+
+        <p>
+          Na počátku 18. století však město zasáhla ničivá přírodní katastrofa, která výrazně ovlivnila jeho další vývoj.
+          Újezd se z následků této události vzpamatovával velmi dlouho a jeho význam v regionu postupně oslabil.
+        </p>
+
+        <p class="muted" style="margin-bottom:0;">
+          Text je uveden jako stručný přehled pro veřejnost; podrobnější informace jsou dostupné v kronikách a ve fondu knihovny.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGENDS HUB -->
+  <section class="page" id="page-legends" aria-labelledby="legends-title">
+    <div class="section">
+      <div class="head">
+        <h2 id="legends-title">Regionální legendy</h2>
+      </div>
+      <div class="body">
+        <p class="lead">
+          Každé město má své příběhy. Některé jsou doloženy kronikami, jiné se předávaly ústně po generace. Újezd není výjimkou.
+        </p>
+
+        <ul class="topic-list" aria-label="Seznam tematických okruhů">
+          <!-- Lovec (ONLY clickable) -->
+          <li class="topic">
+            <div class="topic-header">
+              <strong>Pověsti o Lovci</strong>
+              <span class="pill">rozkliknout</span>
+            </div>
+            <a class="topic-link" href="#lovec" data-page="lovec">
+              <span>Zobrazit seznam legend</span>
+              <span class="pill">4 položky</span>
+            </a>
+            <div class="topic-body">
+              <p class="muted" style="margin-top:10px;">
+                Poznámka: Pověsti jsou uváděny jako tradované vyprávění, nikoli jako doložený fakt.
+              </p>
+            </div>
+          </li>
+
+          <!-- Silvestr (not clickable) -->
+          <li class="topic">
+            <div class="topic-header">
+              <strong>Pověsti o Silvestru</strong>
+              <span class="pill">informativní</span>
+            </div>
+            <div class="topic-body">
+              <p>
+                V místních vyprávěních se objevuje postava Silvestra jako součást drobných příběhů a ústních tradic,
+                které se liší podle rodinných linií a období. Tyto motivy jsou obvykle předávány v rámci paměti místa
+                a bývají zachyceny jen okrajově.
+              </p>
+              <p class="muted">
+                Poznámka: Uvedeno jako přehledový okruh; konkrétní verze se mohou lišit a nejsou vedeny jako faktický záznam.
+              </p>
+            </div>
+          </li>
+
+          <!-- Other mythical figures (not clickable) -->
+          <li class="topic">
+            <div class="topic-header">
+              <strong>Další mytické postavy a motivy</strong>
+              <span class="pill">informativní</span>
+            </div>
+            <div class="topic-body">
+              <p>
+                K regionálním legendám patří také obecnější motivy spojené s cestami, vodou, lesy a místními zvláštnostmi,
+                které se v různých obměnách objevují v okolních obcích. Újezd si část těchto motivů přetvořil do vlastních
+                vyprávění, často s důrazem na každodennost a paměť města.
+              </p>
+              <p class="muted">
+                Poznámka: Vše je uvedeno jako legenda či tradice, nikoli jako doložený fakt.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOVEC LIST -->
+  <section class="page" id="page-lovec" aria-labelledby="lovec-title">
+    <div class="section">
+      <div class="head">
+        <h2 id="lovec-title">Pověsti o Lovci</h2>
+      </div>
+      <div class="body">
+        <p class="lead">
+          Zde jsou uvedeny nejčastěji tradované verze příběhů, které se v Újezdě pojí s postavou označovanou jako „Lovec“.
+          Jednotlivé texty jsou vedeny jako legenda.
+        </p>
+
+        <ul class="sublist" aria-label="Seznam legend o Lovci">
+          <li>
+            <a href="#legenda-1" data-page="legend1">
+              <span>Legenda 1 — Chlapec, jenž byl poslán do církve</span>
+              <span class="tag-accent">rozklik</span>
+            </a>
+          </li>
+          <li>
+            <a href="#legenda-2" data-page="legend2">
+              <span>Legenda 2 — Ochranitel města</span>
+              <span class="tag-accent">rozklik</span>
+            </a>
+          </li>
+          <li>
+            <a href="#legenda-3" data-page="legend3">
+              <span>Legenda 3 — Muž, který šel proti šesti</span>
+              <span class="tag-accent">rozklik</span>
+            </a>
+          </li>
+          <li>
+            <a href="#legenda-4" data-page="legend4">
+              <span>Legenda 4 — Poslední noc</span>
+              <span class="tag-accent">rozklik</span>
+            </a>
+          </li>
+        </ul>
+
+        <a class="backlink" href="#legendy" data-page="legends">← Zpět na Regionální legendy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGEND 1 -->
+  <section class="page" id="page-legend1" aria-labelledby="legend1-title">
+    <div class="section">
+      <div class="head">
+        <h2 id="legend1-title">Legenda 1 — Chlapec, jenž byl poslán do církve</h2>
+      </div>
+      <div class="body">
+        <p>
+          Vypráví se, že budoucí Lovec čarodějnic nebyl od počátku mužem činu, ale spíše tichým a přemýšlivým chlapcem. Narodil se v Újezdě v době, kdy město procházelo proměnami a hledalo své místo mezi okolními sídly. Jeho otec, muž pevného přesvědčení, jej údajně poslal do církevní školy, aby se naučil písmu, řádu a poslušnosti.
+		
+		V klášteře měl mladík poznat svět jiný než ten, který znal z domova. Naučil se číst latinské texty, studoval teologii a přemýšlel o tom, jak má být svět uspořádán. Podle některých vyprávění právě zde v něm vyrostlo silné přesvědčení, že každá věc má své místo a že chaos je třeba potlačit dříve, než se rozšíří.
+		
+		Když se po letech vrátil do Újezdu, nebyl už tím stejným chlapcem. Lidé jej popisovali jako mlčenlivého, soustředěného a přísného k sobě i k ostatním. Nevyhledával společnost, ale byl vždy přítomen tam, kde se mluvilo o nepořádku, nepokojích či zvláštních událostech.
+		
+		Legenda praví, že jej vedla víra. Jiní tvrdí, že jej vedla obava z toho, co by se mohlo stát, pokud by město ztratilo řád. Ať už byl jeho motiv jakýkoli, návrat tohoto muže do rodného města se stal počátkem období, o němž se dodnes vypráví.
+        </p>
+        <p class="muted" style="margin-bottom:0;">
+          Poznámka: Pověst je uváděna jako tradované vyprávění, nikoli jako doložený fakt.
+        </p>
+
+        <a class="backlink" href="#lovec" data-page="lovec">← Zpět na seznam legend o Lovci</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGEND 2 -->
+  <section class="page" id="page-legend2" aria-labelledby="legend2-title">
+    <div class="section">
+      <div class="head">
+        <h2 id="legend2-title">Legenda 2 — Ochranitel města</h2>
+      </div>
+      <div class="body">
+        <p>
+          V 17. století se podle místních pověstí Újezd ocitl v období neklidu. Neúroda, nemoci a drobné spory mezi obyvateli vyvolávaly napětí. Město, které si dosud budovalo svou prosperitu, začalo pochybovat o vlastní stabilitě.
+
+		Tehdy měl vystoupit muž, který věřil, že každé neštěstí má svou příčinu a že tuto příčinu lze odhalit. Podle vyprávění chodil ulicemi, mluvil s lidmi a pozoroval jejich chování. Měl prý dar rozpoznat skryté úmysly a slabosti.
+
+		Někteří jej obdivovali. Viděli v něm někoho, kdo se nebál postavit problémům čelem. Jiní jej považovali za příliš přísného, možná až neústupného. Přesto se postupně stal postavou, k níž se lidé obraceli, když hledali odpovědi.
+
+		Legenda jej líčí jako ochránce města – člověka, který byl přesvědčen, že jedná ve prospěch všech. V jeho činech se podle vyprávění odrážela víra, že Újezd musí být ubráněn před silami, které by jej mohly oslabit.
+
+		Zda byl skutečně zachráncem, nebo jen mužem své doby, dnes nelze s jistotou říci. Příběhy jej však uchovaly jako postavu pevné vůle a neochvějného přesvědčení.
+   </p>
+        <p class="muted" style="margin-bottom:0;">
+          Poznámka: Pověst je uváděna jako tradované vyprávění, nikoli jako doložený fakt.
+        </p>
+
+        <a class="backlink" href="#lovec" data-page="lovec">← Zpět na seznam legend o Lovci</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGEND 3 -->
+  <section class="page" id="page-legend3" aria-labelledby="legend3-title">
+    <div class="section">
+      <div class="head">
+        <h2 id="legend3-title">Legenda 3 — Muž, který šel proti šesti</h2>
+      </div>
+      <div class="body">
+        <p>
+         Jedna z nejznámějších legend vypráví o skupině žen, které měly podle tehdejších představ vliv na události v městě. Pověsti hovoří o zvláštních shromážděních, o nočních rozhovorech i o obavách, jež se šířily mezi obyvateli.
+
+		Lovec měl být tím, kdo se rozhodl těmto obavám čelit. Podle příběhů neváhal vystoupit proti několika ženám, které byly v očích mnohých považovány za nebezpečné. Vyprávění zdůrazňují jeho odvahu – byl prý sám proti přesile, veden pouze vírou ve správnost svého rozhodnutí.
+
+		Některé verze legendy jej líčí téměř jako hrdinu balady: muže, který se nebál stát osamoceně, pokud věřil, že tím chrání ostatní. Jiná vyprávění jsou opatrnější a mluví spíše o napjaté době, kdy bylo těžké rozlišit mezi pravdou a strachem.
+
+		Ať už se události odehrály jakkoli, příběh o muži, jenž se postavil šesti ženám, zůstává jedním z nejvyprávěnějších motivů újezdských legend. V místních kronikách i ústním podání je tato kapitola spojována s dramatickým závěrem jednoho období městských dějin.
+		</p>
+        <p class="muted" style="margin-bottom:0;">
+          Poznámka: Pověst je uváděna jako tradované vyprávění, nikoli jako doložený fakt.
+        </p>
+
+        <a class="backlink" href="#lovec" data-page="lovec">← Zpět na seznam legend o Lovci</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGEND 4 -->
+  <section class="page" id="page-legend4" aria-labelledby="legend4-title">
+    <div class="section">
+      <div class="head">
+        <h2 id="legend4-title">Legenda 4 — Poslední noc</h2>
+      </div>
+      <div class="body">
+        <p>
+          O posledních dnech Lovce kolují různé verze. Někteří tvrdí, že jej vyčerpaly události, kterých byl součástí. Jiní mluví o tichém ústraní, do něhož se měl uchýlit, když jeho úkoly skončily.
+
+		Jedna z legend říká, že prožil svou poslední noc v domě na okraji města, daleko od ruchu náměstí. Měl být zamyšlený, ponořený do vlastních myšlenek a přesvědčený, že splnil to, co považoval za svou povinnost.
+
+		Krátce poté však město postihla velká katastrofa, která změnila jeho další vývoj. Někteří si tyto události spojovali, jiní je považovali za pouhou shodu okolností.
+
+		O jeho smrti neexistuje jednoznačný záznam. Tradice však praví, že odešel bez velkých slov a bez veřejné pocty. Zůstaly jen příběhy.
+
+		A právě tyto příběhy – předávané z generace na generaci – utvářejí obraz Lovce jako postavy rozporuplné, avšak neoddělitelně spojené s dějinami Újezdu
+        </p>
+        <p class="muted" style="margin-bottom:0;">
+          Poznámka: Pověst je uváděna jako tradované vyprávění, nikoli jako doložený fakt.
+        </p>
+
+        <a class="backlink" href="#lovec" data-page="lovec">← Zpět na seznam legend o Lovci</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="page" id="page-contact" aria-labelledby="contact-title">
+    <div class="section">
+      <div class="head">
+        <h2 id="contact-title">Kontaktujte nás</h2>
+      </div>
+      <div class="body">
+        <div class="grid-2">
+          <div>
+            <p class="lead" style="margin-bottom:12px;">
+              Pokud máte dotazy k fondu, regionálním materiálům nebo ke kronikám a dokumentům ve sbírkách knihovny, neváhejte nás kontaktovat.
+            </p>
+
+            <div class="info-box" aria-label="Kontaktní údaje">
+              <h3>Kontaktní údaje</h3>
+              <div class="info-row"><b>Adresa</b><span>Městská knihovna Újezd<br/>Náměstí 12<br/>289 00 Újezd</span></div>
+              <div class="info-row"><b>Telefon</b><span>+420 325 487 112</span></div>
+              <div class="info-row"><b>E-mail</b><span><a href="mailto:info@knihovna-ujezd.cz">info@knihovna-ujezd.cz</a></span></div>
+            </div>
+          </div>
+
+          <aside class="info-box" aria-label="Otevírací doba">
+            <h3>Otevírací doba</h3>
+            <div class="info-row"><b>Pondělí</b><span>9:00–17:00</span></div>
+            <div class="info-row"><b>Středa</b><span>9:00–17:00</span></div>
+            <div class="info-row"><b>Pátek</b><span>9:00–15:00</span></div>
+            <p class="muted" style="margin:10px 0 0;">
+              Doporučujeme ověřit případné změny otevírací doby před návštěvou (např. během svátků).
+            </p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2025 <strong>Městská knihovna Újezd</strong> — Všechna práva vyhrazena.</div>
+    <div>Správa webu: Městský úřad Újezd</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const clickables = Array.from(document.querySelectorAll('a[data-page]'));
+
+    const pages = {
+      home: document.getElementById('page-home'),
+      history: document.getElementById('page-history'),
+      legends: document.getElementById('page-legends'),
+      lovec: document.getElementById('page-lovec'),
+      legend1: document.getElementById('page-legend1'),
+      legend2: document.getElementById('page-legend2'),
+      legend3: document.getElementById('page-legend3'),
+      legend4: document.getElementById('page-legend4'),
+      contact: document.getElementById('page-contact')
+    };
+
+    function setActive(pageKey){
+      Object.values(pages).forEach(p => p.classList.remove('active'));
+      if(pages[pageKey]) pages[pageKey].classList.add('active');
+
+      // aria-current only for main nav
+      document.querySelectorAll('nav a[data-page]').forEach(a => a.removeAttribute('aria-current'));
+      const navCurrent = document.querySelector(`nav a[data-page="${pageKey}"]`);
+      if(navCurrent) navCurrent.setAttribute('aria-current','page');
+
+      // update hash
+      const hashMap = {
+        home: 'domu',
+        history: 'historie',
+        legends: 'legendy',
+        lovec: 'lovec',
+        legend1: 'legenda-1',
+        legend2: 'legenda-2',
+        legend3: 'legenda-3',
+        legend4: 'legenda-4',
+        contact: 'kontakt'
+      };
+      const newHash = hashMap[pageKey] ? '#' + hashMap[pageKey] : '';
+      if(location.hash !== newHash) history.replaceState(null, '', newHash);
+
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+
+    function pageFromHash(){
+      const h = (location.hash || '').replace('#','').trim().toLowerCase();
+      if(h === 'historie') return 'history';
+      if(h === 'legendy') return 'legends';
+      if(h === 'lovec') return 'lovec';
+      if(h === 'legenda-1') return 'legend1';
+      if(h === 'legenda-2') return 'legend2';
+      if(h === 'legenda-3') return 'legend3';
+      if(h === 'legenda-4') return 'legend4';
+      if(h === 'kontakt') return 'contact';
+      return 'home';
+    }
+
+    clickables.forEach(a => {
+      a.addEventListener('click', (e) => {
+        const key = a.getAttribute('data-page');
+        if(!key) return;
+        e.preventDefault();
+        setActive(key);
+      });
+    });
+
+    window.addEventListener('hashchange', () => setActive(pageFromHash()));
+    setActive(pageFromHash());
+  })();
+</script>
+</body>
+</html>
